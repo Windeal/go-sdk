@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-const RobotKey = "c275aafa-45a1-4a9d-b06d-xxxxx"
+const RobotKey = "c275aafa-45a1-4a9d-b06d-97f05d5a673b"
 
 func TestRobot_UploadMedia(t *testing.T) {
 	file1, err := os.Open("./README.md")
@@ -67,7 +67,7 @@ func TestRobot_Send(t *testing.T) {
 	}{
 		// TODO: Add test cases.
 		{
-			name: "TestRobot_Send 001",
+			name: "TestRobot_Send File 001",
 			fields: fields{
 				Key: RobotKey,
 			},
@@ -78,6 +78,50 @@ func TestRobot_Send(t *testing.T) {
 					MsgType: "file",
 					File: SendFileReqBody{
 						MediaID: "3KFKb3TD-GNfWVhQL0ddqZrcRMwfqSh1ahV2JNCx2GdKFTA-F94WriKgrcD_fDCtB",
+					},
+				},
+			},
+			wantRsp: &SendRsp{
+				ErrorCode: 0,
+				ErrorMsg:  "ok",
+			},
+			wantErr: false,
+		},
+		{
+			name: "TestRobot_Send Text 001",
+			fields: fields{
+				Key: RobotKey,
+			},
+			args: args{
+				ctx:     context.WithValue(context.Background(), ContextTraceKey, "TestRobot_Send-Text-001"),
+				msgType: "text",
+				body: SendReqBody{
+					MsgType: "text",
+					Text: SendTextReqBody{
+						Content:             "这是一条文本信息",
+						MentionedList:       []string{"windealli"},
+						MentionedMobileList: nil,
+					},
+				},
+			},
+			wantRsp: &SendRsp{
+				ErrorCode: 0,
+				ErrorMsg:  "ok",
+			},
+			wantErr: false,
+		},
+		{
+			name: "TestRobot_Send Text 001",
+			fields: fields{
+				Key: RobotKey,
+			},
+			args: args{
+				ctx:     context.WithValue(context.Background(), ContextTraceKey, "TestRobot_Send-Text-001"),
+				msgType: "markdown",
+				body: SendReqBody{
+					MsgType: "markdown",
+					Markdown: SendMarkdownReqBody{
+						Content: "这是一条文本信息\n # Hello",
 					},
 				},
 			},
