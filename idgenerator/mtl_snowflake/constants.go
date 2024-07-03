@@ -12,5 +12,5 @@ const (
 )
 
 var (
-	defaultEpoch int64 = time.Date(2015, 6, 10, 0, 0, 0, 0, time.UTC).UnixNano()
+	defaultEpoch int64 = time.Date(2020, 1, 1, 0, 0, 0, 0, time.UTC).UnixNano()
 )
