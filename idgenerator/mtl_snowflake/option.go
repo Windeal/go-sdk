@@ -14,6 +14,27 @@ func (f optionFunc) apply(gen *Generator) {
 // WithConfig :
 func WithConfig(config *Config) Option {
 	return optionFunc(func(gen *Generator) {
-		gen.config = config
+		// gen.config = config
+		if config.TimeBit > 0 {
+			gen.config.TimeBit = config.TimeBit
+		}
+
+		if config.MachineIDBit > 0 {
+			gen.config.MachineIDBit = config.MachineIDBit
+		}
+
+		if config.TimelineBit > 0 {
+			gen.config.TimelineBit = config.TimelineBit
+		}
+
+		if config.SeqBit > 0 {
+			gen.config.SeqBit = config.SeqBit
+		}
+		if config.Epoch > 0 {
+			gen.config.Epoch = config.Epoch
+		}
+		if config.machineID > 0 {
+			gen.config.machineID = config.machineID
+		}
 	})
 }
