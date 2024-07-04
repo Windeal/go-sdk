@@ -151,7 +151,7 @@ func (gen *Generator) Generate(ctx context.Context) (int64, error) {
 
 	// 组装ID
 	id := (curTime << gen.preSets.shiftTimeBit) |
-		(gen.config.machineID << gen.preSets.shiftMachineIDBit) |
+		(gen.config.MachineID << gen.preSets.shiftMachineIDBit) |
 		(gen.curTimeline << gen.preSets.shiftTimelineBit) |
 		int64(gen.seq)
 	return id, nil
