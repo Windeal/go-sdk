@@ -4,12 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/windeal/go-sdk/idgenerator/logger"
 	"net"
 	"strconv"
 	"strings"
 	"sync"
 	"time"
+
+	"github.com/windeal/go-sdk/idgenerator/logger"
 )
 
 type Generator struct {
@@ -28,8 +29,7 @@ type Config struct {
 	TimelineBit  uint64 // 时间线位长度
 	SeqBit       uint64 // 序号位长度
 	Epoch        int64  // 时间位的基准时间(unix nano)
-	machineID    int64  // 机器码
-
+	MachineID    int64  // 机器码
 }
 
 type PreSets struct {
@@ -64,7 +64,7 @@ func NewGenerator(ctx context.Context, opts ...Option) (gen *Generator, err erro
 			TimelineBit:  defaultTimelineBit,
 			SeqBit:       defaultSeqBit,
 			Epoch:        defaultEpoch,
-			machineID:    -1,
+			MachineID:    -1,
 		},
 		preSets:          nil,
 		timelineProgress: make([]int64, 16), // 时间线不要超过16条
@@ -73,7 +73,7 @@ func NewGenerator(ctx context.Context, opts ...Option) (gen *Generator, err erro
 	}
 
 	machineID, _ := getIPSuffix(ctx)
-	gen.config.machineID = int64(machineID)
+	gen.config.MachineID = int64(machineID)
 
 	for _, opt := range opts {
 		opt.apply(gen)
@@ -204,7 +204,7 @@ func (gen *Generator) sanityCheck(ctx context.Context) (err error) {
 	}
 
 	// 校验机器码是否合法
-	if gen.config.machineID < 0 || gen.config.machineID > int64(gen.preSets.maxMachineID) {
+	if gen.config.MachineID < 0 || gen.config.MachineID > int64(gen.preSets.maxMachineID) {
 		return errors.New(fmt.Sprintf("machineID must in [0, %d]", gen.preSets.maxMachineID))
 	}
 

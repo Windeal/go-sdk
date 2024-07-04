@@ -33,8 +33,8 @@ func WithConfig(config *Config) Option {
 		if config.Epoch > 0 {
 			gen.config.Epoch = config.Epoch
 		}
-		if config.machineID > 0 {
-			gen.config.machineID = config.machineID
+		if config.MachineID > 0 {
+			gen.config.MachineID = config.MachineID
 		}
 	})
 }
